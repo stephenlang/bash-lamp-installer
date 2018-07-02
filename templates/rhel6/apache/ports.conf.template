@@ -1,0 +1,8 @@
+
+
+NameVirtualHost *:80
+Listen 80
+
+NameVirtualHost *:443
+Listen 443
+

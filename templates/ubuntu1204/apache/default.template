@@ -1,0 +1,51 @@
+<VirtualHost *:80>
+        ServerName example.com
+        ServerAlias www.example.com
+        DocumentRoot /var/www/vhosts/example.com
+
+        # Force HTTPS when loading the page
+        #RewriteEngine On
+        #RewriteCond %{HTTPS} off
+        #RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+        <Directory /var/www/vhosts/example.com>
+                Options -Indexes +FollowSymLinks -MultiViews
+                AllowOverride All
+        </Directory>
+
+        CustomLog /var/log/apache2/example.com-access.log combined
+        ErrorLog /var/log/apache2/example.com-error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+</VirtualHost>
+
+#<VirtualHost *:443>
+#        ServerName example.com
+#        ServerAlias www.example.com
+#        DocumentRoot /var/www/vhosts/example.com
+#        <Directory /var/www/vhosts/example.com>
+#                Options -Indexes +FollowSymLinks -MultiViews
+#                AllowOverride All
+#        </Directory>
+#
+#        CustomLog /var/log/apache2/example.com-ssl-access.log combined
+#        ErrorLog /var/log/apache2/example.com-ssl-error.log
+#
+#        # Possible values include: debug, info, notice, warn, error, crit,
+#        # alert, emerg.
+#        LogLevel warn
+#
+#        SSLEngine on
+#        SSLCertificateFile    /etc/pki/tls/certs/2017-example.com.crt
+#        SSLCertificateKeyFile /etc/pki/tls/private/2017-example.com.key
+#        SSLCertificateChainFile /etc/pki/tls/private/2017-example.com.ca.crt
+#
+#        <FilesMatch "\.(cgi|shtml|phtml|php)$">
+#                SSLOptions +StdEnvVars
+#        </FilesMatch>
+#
+#        BrowserMatch "MSIE [2-6]"                 nokeepalive ssl-unclean-shutdown                 downgrade-1.0 force-response-1.0
+#        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+#</VirtualHost>

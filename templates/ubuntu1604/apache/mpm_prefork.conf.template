@@ -1,0 +1,17 @@
+# prefork MPM
+# StartServers: number of server processes to start
+# MinSpareServers: minimum number of server processes which are kept spare
+# MaxSpareServers: maximum number of server processes which are kept spare
+# MaxRequestWorkers: maximum number of server processes allowed to start
+# MaxConnectionsPerChild: maximum number of requests a server process serves
+
+
+<IfModule mpm_prefork_module>
+    StartServers $prefork_start_servers
+    MinSpareServers $prefork_min_spare_servers
+    MaxSpareServers $prefork_max_spare_servers
+    ServerLimit $prefork_server_limit
+    MaxRequestWorkers $prefork_max_clients
+    MaxConnectionsPerChild $prefork_max_requests_per_child
+    ListenBacklog $prefork_listen_backlog
+</IfModule>

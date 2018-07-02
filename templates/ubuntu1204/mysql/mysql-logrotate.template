@@ -1,0 +1,6 @@
+$log_slow {
+        missingok
+        rotate 2
+        size 125M
+        create 644 mysql mysql
+}
