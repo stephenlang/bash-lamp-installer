@@ -209,26 +209,14 @@ systemctl restart mysql
 # Holland Installation Tasks
 #################################################
 
-## Holland for Ubuntu is not currently in the repo.  Therefore commenting out section below and installing packages manually
 # Setup Holland repo
-# eval $(cat /etc/os-release)
-# DIST="xUbuntu_${VERSION_ID}"
-# [ $ID == "debian" ] && DIST="Debian_${VERSION_ID}.0"
-# curl -s http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/Release.key | sudo apt-key add -
-# echo "deb http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/ ./" > /etc/apt/sources.list.d/holland.list
+. /etc/os-release
+echo "deb https://download.opensuse.org/repositories/home:/holland-backup/x${NAME}_${VERSION_ID}/ ./" >> /etc/apt/sources.list
+wget -qO - https://download.opensuse.org/repositories/home:/holland-backup/x${NAME}_${VERSION_ID}/Release.key | apt-key add -
 
 # Install Holland packages
-# apt-get update
-# apt-get install -y holland holland-mysqldump holland-common
-
-# Download packages manually and install them:
-wget http://download.opensuse.org/repositories/home:/holland-backup/xUbuntu_16.04/all/holland_1.0.14-1_all.deb
-wget http://download.opensuse.org/repositories/home:/holland-backup/xUbuntu_16.04/all/holland-mysqldump_1.0.14-1_all.deb
-wget http://download.opensuse.org/repositories/home:/holland-backup/xUbuntu_16.04/all/holland-common_1.0.14-1_all.deb
-wget http://download.opensuse.org/repositories/home:/holland-backup/xUbuntu_16.04/all/holland-mysqllvm_1.0.14-1_all.deb
-wget http://download.opensuse.org/repositories/home:/holland-backup/xUbuntu_16.04/all/holland-xtrabackup_1.0.14-1_all.deb
-apt-get -y install python-pkg-resources libmysqlclient20 python-mysqldb
-dpkg -i holland_1.0.14-1_all.deb holland-mysqldump_1.0.14-1_all.deb holland-common_1.0.14-1_all.deb holland-mysqllvm_1.0.14-1_all.deb holland-xtrabackup_1.0.14-1_all.deb
+apt-get update
+apt-get install -y holland python3-mysqldb
 
 # Copy over templates and configure backup directory
 cp ../templates/ubuntu1804/holland/default.conf.template /etc/holland/backupsets/default.conf
