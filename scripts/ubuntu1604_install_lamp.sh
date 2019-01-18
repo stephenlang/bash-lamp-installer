@@ -212,15 +212,13 @@ systemctl restart mysql
 #################################################
 
 # Setup Holland repo
-eval $(cat /etc/os-release)
-DIST="xUbuntu_${VERSION_ID}"
-[ $ID == "debian" ] && DIST="Debian_${VERSION_ID}.0"
-curl -s http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/Release.key | sudo apt-key add -
-echo "deb http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/ ./" > /etc/apt/sources.list.d/holland.list
+. /etc/os-release
+echo "deb https://download.opensuse.org/repositories/home:/holland-backup/x${NAME}_${VERSION_ID}/ ./" >> /etc/apt/sources.list
+wget -qO - https://download.opensuse.org/repositories/home:/holland-backup/x${NAME}_${VERSION_ID}/Release.key | apt-key add -
 
 # Install Holland packages
 apt-get update
-apt-get install -y holland holland-mysqldump holland-common
+apt-get install -y holland python3-mysqldb
 
 # Copy over templates and configure backup directory
 cp ../templates/ubuntu1604/holland/default.conf.template /etc/holland/backupsets/default.conf
