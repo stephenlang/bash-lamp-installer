@@ -212,8 +212,8 @@ service mysql restart
 eval $(cat /etc/os-release)
 DIST="xUbuntu_${VERSION_ID}"
 [ $ID == "debian" ] && DIST="Debian_${VERSION_ID}.0"
-curl -s http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/Release.key | sudo apt-key add -
-echo "deb http://download.opensuse.org/repositories/home:/holland-backup/${DIST}/ ./" > /etc/apt/sources.list.d/holland.list
+curl -s http://download.opensuse.org/repositories/home:/holland-backup:/staging/${DIST}/Release.key | sudo apt-key add -
+echo "deb http://download.opensuse.org/repositories/home:/holland-backup:/staging/${DIST}/ ./" > /etc/apt/sources.list.d/holland.list
 
 # Install Holland packages
 apt-get update
