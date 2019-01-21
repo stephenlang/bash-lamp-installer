@@ -30,17 +30,17 @@
 #                AllowOverride All
 #        </Directory>
 #
-#        CustomLog /var/log/httpd/example.com-ssl-access.log combined
-#        ErrorLog /var/log/httpd/example.com-ssl-error.log
+#        CustomLog /var/log/httpd/example.com-access.log combined
+#        ErrorLog /var/log/httpd/example.com-error.log
 #
 #        # Possible values include: debug, info, notice, warn, error, crit,
 #        # alert, emerg.
 #        LogLevel warn
 #
 #        SSLEngine on
-#        SSLCertificateFile    /etc/pki/tls/certs/2017-example.com.crt
-#        SSLCertificateKeyFile /etc/pki/tls/private/2017-example.com.key
-#        SSLCertificateChainFile /etc/pki/tls/private/2017-example.com.ca.crt
+#        SSLCertificateKeyFile /etc/pki/tls/private/2019-example.com.key
+#        SSLCertificateFile    /etc/pki/tls/certs/2019-example.com.crt
+#        SSLCertificateChainFile /etc/pki/tls/certs/2019-example.com.ca.crt
 #
 #        <FilesMatch "\.(cgi|shtml|phtml|php)$">
 #                SSLOptions +StdEnvVars
