@@ -99,7 +99,6 @@ worker_max_requests_per_child=0
 max_execution_time=30
 memory_limit=64M
 error_reporting='E_ALL \& ~E_NOTICE | E_DEPRECATED'
-register_globals=Off
 post_max_size=8M
 upload_max_filesize=2M
 short_open_tag='On'
