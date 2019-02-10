@@ -32,10 +32,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Disable script
-echo "This installer is broken and will be fixed soon.  No changes have been made to your system."
-sleep 2
-exit 1
 
 #################################################
 # Base Package Installation Tasks
@@ -111,7 +107,7 @@ expose_php=Off
 session_save_path='/var/lib/php/session'
 
 # Install Apache and PHP packages
-yum install -y httpd httpd-tools mod_ssl php56u php56u-gd php56u-mysqlnd php56u-opcache php56u-xml php56u-devel
+yum install -y httpd httpd-tools mod_ssl php71u php71u-gd php71u-mysqlnd php71u-opcache php71u-xml php71u-devel
 
 # Copy over templates
 mkdir /var/www/vhosts
@@ -197,7 +193,7 @@ mysqlrootpassword=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16`
 
 # Install MySQL packages
 rpm -e --nodeps mysql-libs
-yum install -y mysql55-devel mysql55-libs mysql55 mysql55-server mysqlclient16
+yum install -y mysql56u-devel mysql56u-libs mysql56u mysql56u-server mysqlclient16
 mkdir /etc/sysconfig/mysqld-config
 
 # Copy over templates
@@ -261,32 +257,6 @@ echo "30 3 * * * root /usr/sbin/holland -q bk" > /etc/cron.d/holland
 
 
 #################################################
-# PHPMyAdmin Installation Tasks
-#################################################
-
-# PHPMyAdmin variables
-htuser=serverinfo
-htpass=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16`
-
-# Install PHPMyAdmin package
-yum install -y phpmyadmin
-
-# Copy over templates
-cp ../templates/rhel6/phpmyadmin/phpMyAdmin.conf.template /etc/phpMyAdmin/phpMyAdmin.conf
-
-# Setup PHPMyAdmin variables
-echo "$htuser $htpass" > /root/.phpmyadminpass
-
-# Set PHPMyAdmin before htaccess file
-htpasswd -b -c /etc/phpMyAdmin/phpmyadmin-htpasswd $htuser $htpass
-
-# Symlink in apache config and restart apache
-rm -f /etc/httpd/conf.d/phpMyAdmin.conf
-ln -s /etc/phpMyAdmin/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf
-service httpd restart
-
-
-#################################################
 # Setup Report
 #################################################
 
@@ -315,20 +285,11 @@ ${lightblue}Apache Server Status URL:${nc}   http://$real_ip/server-status
 ${lightblue}Apache Server Status User:${nc}  serverinfo
 ${lightblue}Apache Server Status Pass:${nc}  $srvstatus_htpass
 
-${lightblue}PHPMyAdmin URL:${nc}  http://$real_ip/phpmyadmin
-${lightblue}PHPMyAdmin User:${nc} serverinfo / root
-${lightblue}PHPMyAdmin Pass:${nc} $htpass / $mysqlrootpassword
-
 ${lightblue}MySQL Root User:${nc}  root 
 ${lightblue}MySQL Root Pass:${nc}  $mysqlrootpassword
 
-** For security purposes, there is an htaccess file in front of phpmyadmin.
-So when the popup window appears, use the serverinfo username and password. 
-Once your on the phpmyadmin landing page, use the root MySQL credentials.
-
 If you lose this setup report, the credentails can be found in:
 ${lightblue}Apache Server Status:${nc}  /root/.serverstatus
-${lightblue}PHPMyAdmin:${nc}            /root/.phpmyadmin
 ${lightblue}MySQL Credentials:${nc}     /root/.my.cnf
 
 ${txtbld}---------------------------------------------------------------
