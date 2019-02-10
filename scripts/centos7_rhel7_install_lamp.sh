@@ -32,6 +32,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Disable script
+echo "This installer is broken and will be fixed soon.  No changes have been made to your system."
+sleep 2
+exit 1
 
 #################################################
 # Base Package Installation Tasks
