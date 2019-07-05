@@ -41,8 +41,8 @@
 yum -y update
 
 # Install EPEL and IUS Repo
-rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-rpm -ivh https://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/ius-release-1.0-15.ius.centos6.noarch.rpm
+yum install -y epel-release
+yum install -y https://repo.ius.io/ius-release-el6.rpm
 
 # Check to ensure EPEL repo was installed
 if [ `rpm -qa |grep -i epel-release | wc -l` -lt 1 ]; then
