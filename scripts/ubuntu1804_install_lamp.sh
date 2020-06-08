@@ -189,6 +189,7 @@ sed -i "s@\$log_slow@$log_slow@g" /etc/logrotate.d/mysqllogs
 
 # Set some basic security stuff within MYSQL
 mysql -e "UPDATE mysql.user SET authentication_string = PASSWORD('$mysqlrootpassword'), plugin = 'mysql_native_password' WHERE User = 'root' AND Host = 'localhost';"
+mysql -e "grant all on *.* to 'root'@'127.0.0.1' identified by '$mysqlrootpassword';"
 mysql -e "DROP USER ''@'localhost'"
 mysql -e "DROP USER ''@'$(hostname)'"
 mysql -e "DROP DATABASE test"
