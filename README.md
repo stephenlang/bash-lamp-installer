@@ -13,7 +13,7 @@ Currently this LAMP installer supports
 - CentOS 7 / Red Hat ES 7
 - Ubuntu 14.04
 - Ubuntu 16.04
-- Ubuntu 18.04 (Beta)
+- Ubuntu 18.04
 
 ### Package Versions Installed
 
@@ -24,7 +24,7 @@ The specific packages and their associated versions are shown in the table below
 | CentOS 6 / RHEL 6 | CentOS 7 / RHEL 7 | Ubuntu 14.04 | Ubuntu 16.04 | Ubuntu 18.04 |
 | ----------------- | ----------------- | ------------ | ------------ | ------------ |
 | Apache 2.2        | Apache 2.4        | Apache 2.4   | Apache 2.4   | Apache 2.4   |
-| PHP 7.1 (IUS)     | PHP 7.2 (IUS)     | PHP 5.5      | PHP 7.0      | PHP 7.2      |
+| PHP 5.3.3         | PHP 7.3 (IUS)     | PHP 5.5      | PHP 7.0      | PHP 7.2      |
 | MySQL 5.6 (IUS)   | MariaDB 5.5       | MySQL 5.5    | MySQL 5.7    | MySQL 5.7    |
 
 ### Additional Software Installed
