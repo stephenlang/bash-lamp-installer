@@ -4,7 +4,7 @@
 # LAMP installer setting up Apache, PHP, MySQL, Holland and attempts to
 # set some sane defaults.
 #
-# Copyright (c) 2016, Stephen Lang
+# Copyright (c) 2020, Stephen Lang
 # All rights reserved.
 #
 # Git repository available at:
@@ -106,7 +106,7 @@ expose_php=Off
 session_save_path='/var/lib/php/session'
 
 # Install Apache and PHP packages
-yum install -y httpd httpd-tools mod_ssl php71u php71u-gd php71u-mysqlnd php71u-opcache php71u-xml php71u-devel
+yum install httpd httpd-tools mod_ssl php php-gd php-mysql php-opcache php-xml php-devel
 
 # Copy over templates
 mkdir /var/www/vhosts
