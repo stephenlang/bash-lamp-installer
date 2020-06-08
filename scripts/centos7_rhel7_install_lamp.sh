@@ -4,7 +4,7 @@
 # LAMP installer setting up Apache, PHP, MySQL, Holland and attempts to
 # set some sane defaults.
 #
-# Copyright (c) 2016, Stephen Lang
+# Copyright (c) 2020, Stephen Lang
 # All rights reserved.
 #
 # Git repository available at:
@@ -103,10 +103,9 @@ post_max_size=8M
 upload_max_filesize=2M
 short_open_tag='On'
 expose_php=Off
-session_save_path='/var/lib/php/session'
 
 # Install Apache and PHP packages
-yum install -y httpd httpd-tools mod_ssl php72u php72u-gd php72u-mysqlnd php72u-opcache php72u-xml php72u-devel
+yum install -y httpd httpd-tools mod_ssl php73-common php73-gd php73-mysqlnd php73-opcache php73-xml php73-devel
 
 # Copy over templates
 mkdir /var/www/vhosts
@@ -146,7 +145,6 @@ sed -i "s/\$error_reporting/$error_reporting/g" /etc/php.ini
 sed -i "s/\$register_globals/$register_globals/g" /etc/php.ini
 sed -i "s/\$post_max_size/$post_max_size/g" /etc/php.ini
 sed -i "s/\$upload_max_filesize/$upload_max_filesize/g" /etc/php.ini
-sed -i "s@\$session_save_path@$session_save_path@g" /etc/php.ini
 
 # Secure /server-status behind htaccess
 srvstatus_htuser=serverinfo
