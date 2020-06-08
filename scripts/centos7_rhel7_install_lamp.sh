@@ -105,7 +105,7 @@ short_open_tag='On'
 expose_php=Off
 
 # Install Apache and PHP packages
-yum install -y httpd httpd-tools mod_ssl php73-common php73-gd php73-mysqlnd php73-opcache php73-xml php73-devel
+yum install -y httpd httpd-tools mod_ssl php73-common php73-gd php73-mysqlnd php73-opcache php73-xml php73-devel mod_php73
 
 # Copy over templates
 mkdir /var/www/vhosts
