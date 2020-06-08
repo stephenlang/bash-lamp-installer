@@ -106,7 +106,7 @@ expose_php=Off
 session_save_path='/var/lib/php/session'
 
 # Install Apache and PHP packages
-yum install httpd httpd-tools mod_ssl php php-gd php-mysql php-opcache php-xml php-devel
+yum install -y httpd httpd-tools mod_ssl php php-gd php-mysql php-opcache php-xml php-devel
 
 # Copy over templates
 mkdir /var/www/vhosts
