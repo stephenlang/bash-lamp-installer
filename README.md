@@ -11,9 +11,10 @@ There are many LAMP installation scripts floating around the internet.  This is 
 Currently this LAMP installer supports
 - CentOS 6 / Red Hat 6
 - CentOS 7 / Red Hat 7
-- CentOS 8 / Red Hat 8 (BETA)
+- CentOS 8 / Red Hat 8 (BETA - Not for production use)
 - Ubuntu 16.04
 - Ubuntu 18.04
+- Ubuntu 20.04 (BETA - Not for production use)
 
 ### Package Versions Installed
 
