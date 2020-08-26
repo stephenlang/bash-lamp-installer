@@ -67,23 +67,7 @@ systemctl start chronyd
 #################################################
 
 # Apache variables
-timeout=30
-keep_alive=On
-keep_alive_requests=120
-keep_alive_timeout=5
-prefork_start_servers=4
-prefork_min_spare_servers=4
-prefork_max_spare_servers=9
-prefork_server_limit=`free -m | grep "Mem:" | awk '{print $2/2/15}' | xargs printf "%.0f"`
-prefork_max_clients=`free -m | grep "Mem:" | awk '{print $2/2/15}' | xargs printf "%.0f"`
-prefork_max_requests_per_child=1000
-prefork_listen_backlog=`free -m | grep "Mem:" | awk '{print $2/2/15*2}' | xargs printf "%.0f"`
-worker_start_servers=4
-worker_max_clients=1024
-worker_min_spare_threads=64
-worker_max_spare_threads=192
-worker_threads_per_child=64
-worker_max_requests_per_child=0
+# Taking defaults for the time being
 
 # PHP variables
 max_execution_time=30
@@ -101,30 +85,21 @@ yum install -y httpd httpd-tools mod_ssl php-common php-gd php-mysqlnd php-opcac
 mkdir /var/www/vhosts
 mkdir /etc/httpd/vhost.d
 cp ../templates/rhel8/apache/default.template /etc/httpd/vhost.d
-cp ../templates/rhel8/apache/httpd.conf.template /etc/httpd/conf/httpd.conf
-cp ../templates/rhel8/apache/ports.conf.template /etc/httpd/ports.conf
 cp ../templates/rhel8/apache/ssl.conf.template /etc/httpd/conf.d/ssl.conf
 cp ../templates/rhel8/apache/status.conf.template /etc/httpd/conf.d/status.conf
 cp ../templates/rhel8/php/php.ini.template /etc/php.ini
 
+# Setup couple one offs
+if [ `grep "Listen 443" /etc/httpd/conf/httpd.conf |wc -l` = 0 ]; then
+	sed -i '/^Listen 80/a Listen 443' /etc/httpd/conf/httpd.conf
+fi
+
+if [ `grep "IncludeOptional vhost.d/" /etc/httpd/conf/httpd.conf |wc -l` = 0 ]; then
+	echo "IncludeOptional vhost.d/*.conf" >> /etc/httpd/conf/httpd.conf
+fi
+
 # Setup Apache variables
-sed -i "s/\$timeout/$timeout/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$keep_alive_setting/$keep_alive/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$keep_alive_requests/$keep_alive_requests/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$keep_alive_timeout/$keep_alive_timeout/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_start_servers/$prefork_start_servers/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_min_spare_servers/$prefork_min_spare_servers/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_max_spare_servers/$prefork_max_spare_servers/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_server_limit/$prefork_server_limit/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_max_clients/$prefork_max_clients/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_max_requests_per_child/$prefork_max_requests_per_child/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$prefork_listen_backlog/$prefork_listen_backlog/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_start_servers/$worker_start_servers/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_max_clients/$worker_max_clients/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_min_spare_threads/$worker_min_spare_threads/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_max_spare_threads/$worker_max_spare_threads/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_threads_per_child/$worker_threads_per_child/g" /etc/httpd/conf/httpd.conf
-sed -i "s/\$worker_max_requests_per_child/$worker_max_requests_per_child/g" /etc/httpd/conf/httpd.conf
+# Taking defaults for the time being
 
 # Setup PHP variables
 sed -i "s/\$memory_limit/$memory_limit/g" /etc/php.ini
@@ -159,55 +134,17 @@ firewall-cmd --reload
 #################################################
 
 # MySQL variables
-#datadir=/var/lib/mysql
-#socket=/var/lib/mysql/mysql.sock
-#table_open_cache=2048
-#query_cache_size=32M
-#max_heap_table_size=64M
-#max_connections=`echo $(( $prefork_max_clients + 2 ))`
-#wait_timeout=180
-#net_read_timeout=30
-#net_write_timeout=30
-#back_log=128
-#key_buffer_size=64M
-#innodb_buffer_pool_size=`free -m | grep "Mem:" | awk '{print $2*20/100}' | xargs printf "%.0f"M`
-#innodb_log_buffer_size=64M
-#log_bin=/var/lib/mysql/bin-log
-#log_relay=/var/lib/mysql/relay-log
-#log_slow=/var/lib/mysql/slow-log
-#log_error=/var/log/mysql/mysqld.log
-#includedir=/etc/sysconfig/mysqld-config
+# Taking default for the time being
 mysqlrootpassword=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16`
 
 # Install MySQL packages
 yum install -y mariadb mariadb-devel mariadb-server
-#mkdir /etc/sysconfig/mysqld-config
 
 # Copy over templates
-#cp ../templates/rhel8/mysql/my.cnf.template /etc/my.cnf
 #cp ../templates/rhel8/mysql/mysql-logrotate.template /etc/logrotate.d/mysqllogs
 
 # Setup MYSQL variables
-#sed -i "s@\$datadir@$datadir@g" /etc/my.cnf
-#sed -i "s@\$socket@$socket@g" /etc/my.cnf
-#sed -i "s@\$log_error@$log_error@g" /etc/my.cnf
-#sed -i "s/\$table_open_cache/$table_open_cache/g" /etc/my.cnf
-#sed -i "s/\$query_cache_size/$query_cache_size/g" /etc/my.cnf
-#sed -i "s/\$max_heap_table_size/$max_heap_table_size/g" /etc/my.cnf
-#sed -i "s/\$max_connections/$max_connections/g" /etc/my.cnf
-#sed -i "s/\$wait_timeout/$wait_timeout/g" /etc/my.cnf
-#sed -i "s/\$net_read_timeout/$net_read_timeout/g" /etc/my.cnf
-#sed -i "s/\$net_write_timeout/$net_write_timeout/g" /etc/my.cnf
-#sed -i "s/\$back_log/$back_log/g" /etc/my.cnf
-#sed -i "s/\$key_buffer_size/$key_buffer_size/g" /etc/my.cnf
-#sed -i "s/\$innodb_buffer_pool_size/$innodb_buffer_pool_size/g" /etc/my.cnf
-#sed -i "s/\$innodb_log_buffer_size/$innodb_log_buffer_size/g" /etc/my.cnf
-#sed -i "s@\$log_bin@$log_bin@g" /etc/my.cnf
-#sed -i "s@\$log_relay@$log_relay@g" /etc/my.cnf
-#sed -i "s@\$log_slow@$log_slow@g" /etc/my.cnf
-#sed -i "s@\$log_error@$log_error@g" /etc/my.cnf
-#sed -i "s@\$includedir@$includedir@g" /etc/my.cnf
-#sed -i "s@\$log_slow@$log_slow@g" /etc/logrotate.d/mysqllogs
+# Taking defaults for the time being
 
 # Set services to start on boot and restart
 systemctl enable mariadb
