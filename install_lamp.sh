@@ -72,6 +72,10 @@ if [ -f /etc/lsb-release ]; then
                 cd scripts
                 bash ubuntu1804_install_lamp.sh
 
+        elif [ `cat /etc/lsb-release | grep -c "RELEASE=20"` -eq 1 ]; then
+                cd scripts
+                bash ubuntu2004_install_lamp.sh
+		
         else
                 echo "Unsupported operating system"
         fi
