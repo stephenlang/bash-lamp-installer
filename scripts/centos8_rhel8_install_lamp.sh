@@ -38,7 +38,7 @@
 #################################################
 
 # Update system
-#yum -y update
+yum -y update
 
 # Install EPEL and IUS Repo
 yum install -y epel-release
