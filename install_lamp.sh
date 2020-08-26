@@ -45,6 +45,10 @@ if [ -f /etc/redhat-release ]; then
 		cd scripts
                 bash centos7_rhel7_install_lamp.sh
 
+        elif [ `cat /etc/redhat-release | grep -c "release 8"` -eq 1 ]; then
+                cd scripts
+                bash centos8_rhel8_install_lamp.sh
+
         else
                 echo "Unsupported operating system"
         fi
