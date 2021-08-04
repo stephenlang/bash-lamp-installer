@@ -83,13 +83,13 @@ mkdir /var/www/vhosts
 mkdir -p /var/lib/php/sessions
 chown root:www-data /var/lib/php/sessions
 chmod 770 /var/lib/php/sessions
-cp ../templates/ubuntu1804/apache/default.template /etc/apache2/sites-available/
-cp ../templates/ubuntu1804/apache/apache2.conf.template /etc/apache2/apache2.conf
-cp ../templates/ubuntu1804/apache/ports.conf.template /etc/apache2/ports.conf
-cp ../templates/ubuntu1804/apache/mpm_prefork.conf.template  /etc/apache2/mods-available/mpm_prefork.conf
-cp ../templates/ubuntu1804/apache/ssl.conf.template  /etc/apache2/mods-available/ssl.conf
-cp ../templates/ubuntu1804/apache/status.conf.template  /etc/apache2/mods-available/status.conf
-cp ../templates/ubuntu1804/php/php.ini.template /etc/php/7.4/apache2/php.ini
+cp ../templates/ubuntu2004/apache/default.template /etc/apache2/sites-available/
+cp ../templates/ubuntu2004/apache/apache2.conf.template /etc/apache2/apache2.conf
+cp ../templates/ubuntu2004/apache/ports.conf.template /etc/apache2/ports.conf
+cp ../templates/ubuntu2004/apache/mpm_prefork.conf.template  /etc/apache2/mods-available/mpm_prefork.conf
+cp ../templates/ubuntu2004/apache/ssl.conf.template  /etc/apache2/mods-available/ssl.conf
+cp ../templates/ubuntu2004/apache/status.conf.template  /etc/apache2/mods-available/status.conf
+cp ../templates/ubuntu2004/php/php.ini.template /etc/php/7.4/apache2/php.ini
 
 # Setup Apache variables
 sed -i "s/\$timeout/$timeout/g" /etc/apache2/apache2.conf
@@ -158,7 +158,7 @@ mysql -e "DROP DATABASE test"
 mysql -e "FLUSH PRIVILEGES"
 
 # Set MySQL root password in /root/.my.cnf
-cp ../templates/ubuntu1804/mysql/dot.my.cnf.template /root/.my.cnf
+cp ../templates/ubuntu2004/mysql/dot.my.cnf.template /root/.my.cnf
 sed -i "s/\$mysqlrootpassword/$mysqlrootpassword/g" /root/.my.cnf
 
 # Restart MySQL to apply changes
@@ -182,7 +182,7 @@ apt-get update
 apt-get install -y holland python3-mysqldb
 
 # Copy over templates and configure backup directory
-cp ../templates/ubuntu1804/holland/default.conf.template /etc/holland/backupsets/default.conf
+cp ../templates/ubuntu2004/holland/default.conf.template /etc/holland/backupsets/default.conf
 
 # Setup nightly cronjob
 echo "30 3 * * * root /usr/sbin/holland -q bk" > /etc/cron.d/holland
@@ -204,7 +204,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install -y phpmyadmin
 
 # Copy over templates
-cp ../templates/ubuntu1804/phpmyadmin/phpMyAdmin.conf.template /etc/phpmyadmin/phpMyAdmin.conf
+cp ../templates/ubuntu2004/phpmyadmin/phpMyAdmin.conf.template /etc/phpmyadmin/phpMyAdmin.conf
 
 # Setup PHPMyAdmin variables
 echo "$htuser $htpass" > /root/.phpmyadminpass
