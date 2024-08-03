@@ -15,6 +15,7 @@ Currently this LAMP installer supports
 - Ubuntu 16.04
 - Ubuntu 18.04
 - Ubuntu 20.04 (BETA - Not for production use)
+- Debian 12 (BETA - Not for production use)
 
 ### Package Versions Installed
 
@@ -22,11 +23,11 @@ It is important to note that for the CentOS and Red Hat operating systems, the i
 
 The specific packages and their associated versions are shown in the table below for each operating system.  The packages that deviate from the distro's default packages are denoted with IUS accordingly:
 
-| CentOS 6 / RHEL 6 | CentOS 7 / RHEL 7 | Ubuntu 16.04 | Ubuntu 18.04 |
-| ----------------- | ----------------- | ------------ | ------------ |
-| Apache 2.2        | Apache 2.4        | Apache 2.4   | Apache 2.4   |
-| PHP 5.3.3         | PHP 7.3 (IUS)     | PHP 7.0      | PHP 7.2      |
-| MySQL 5.6 (IUS)   | MariaDB 5.5       | MySQL 5.7    | MySQL 5.7    |
+| CentOS 6 / RHEL 6 | CentOS 7 / RHEL 7 | Ubuntu 16.04 | Ubuntu 18.04 | Debian 12     |
+| ----------------- | ----------------- | ------------ | ------------ | ------------- |
+| Apache 2.2        | Apache 2.4        | Apache 2.4   | Apache 2.4   | Apache 2.4    |
+| PHP 5.3.3         | PHP 7.3 (IUS)     | PHP 7.0      | PHP 7.2      | PHP 8.2       |
+| MySQL 5.6 (IUS)   | MariaDB 5.5       | MySQL 5.7    | MySQL 5.7    | MariaDB 10.11 |
 
 ### Additional Software Installed
 

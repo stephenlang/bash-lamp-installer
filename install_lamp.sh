@@ -80,3 +80,14 @@ if [ -f /etc/lsb-release ]; then
                 echo "Unsupported operating system"
         fi
 fi
+
+if [ -f /etc/os-release ]; then
+        . /etc/os-release
+
+        if [[ "$ID" == "debian" && "$VERSION_ID" == "12" ]]; then
+                cd scripts
+                bash debian12_install_lamp.sh
+        else
+                echo "Unsupported operating system" 
+        fi
+fi
